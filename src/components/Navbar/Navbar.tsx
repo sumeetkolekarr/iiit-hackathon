@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { LibraryBig } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 // import { AnimatePresence, motion } from "framer-motion";
 
 const Navbar = () => {
   // const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isReached, setIsReached] = useState(false);
+  const navigate = useNavigate();
 
   // Navigation items
   // const navItems = [
@@ -47,7 +49,7 @@ const Navbar = () => {
         setIsReached(false);
       }
     };
-    
+
     window.addEventListener("scroll", handleElement);
     return () => window.removeEventListener("scroll", handleElement);
   }, []);
@@ -76,7 +78,14 @@ const Navbar = () => {
           <h4>IndoTrivia</h4>
         </div>
         {!isReached ? (
-          <button type="button" className="button-30-purple" role="button">
+          <button
+            type="button"
+            onClick={() => {
+              navigate("/register");
+            }}
+            className="button-30-purple"
+            role="button"
+          >
             Get Started
           </button>
         ) : (
