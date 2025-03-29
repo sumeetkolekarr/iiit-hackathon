@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { auth, db, googleProvider } from "../../config/firebase";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, db } from "../../config/firebase";
+import { signInWithEmailAndPassword} from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
@@ -45,32 +45,32 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     const result = await signInWithPopup(auth, googleProvider);
+  //     const user = result.user;
 
-      // Save user to Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        name: user.displayName,
-        email: user.email,
-        method: "google",
-        createdAt: new Date(),
-      });
+  //     // Save user to Firestore
+  //     await setDoc(doc(db, "users", user.uid), {
+  //       uid: user.uid,
+  //       name: user.displayName,
+  //       email: user.email,
+  //       method: "google",
+  //       createdAt: new Date(),
+  //     });
 
-      alert("Google Sign-In Successful!");
-      navigate("/");
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error:", error.message);
-        alert(error.message);
-      } else {
-        console.error("Unknown error:", error);
-        alert("An unknown error occurred");
-      }
-    }
-  };
+  //     alert("Google Sign-In Successful!");
+  //     navigate("/");
+  //   } catch (error) {
+  //     if (error instanceof Error) {
+  //       console.error("Error:", error.message);
+  //       alert(error.message);
+  //     } else {
+  //       console.error("Unknown error:", error);
+  //       alert("An unknown error occurred");
+  //     }
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -128,13 +128,13 @@ const Login = () => {
             </div>
           </form>
 
-          <div className="my-6 flex items-center justify-center">
+          {/* <div className="my-6 flex items-center justify-center">
             <div className="border-t border-gray-300 flex-grow"></div>
             <div className="mx-4 text-sm text-gray-500">OR</div>
             <div className="border-t border-gray-300 flex-grow"></div>
-          </div>
+          </div> */}
 
-          <div className="space-y-4 flex items-center justify-center">
+          {/* <div className="space-y-4 flex items-center justify-center">
             <button
               type="button"
               onClick={handleGoogleSignIn}
@@ -168,7 +168,7 @@ const Login = () => {
               </svg>
               GOOGLE
             </button>
-          </div>
+          </div> */}
 
           <div className="mt-6 text-center text-xs text-gray-600">
             <p>

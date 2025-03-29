@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { auth, db, googleProvider } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import {
   createUserWithEmailAndPassword,
-  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
 import {
   doc,
   setDoc,
-  getDoc,
   collection,
   query,
   where,
@@ -119,45 +117,45 @@ const Register = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    setIsSubmitting(true);
+  // const handleGoogleSignIn = async () => {
+  //   setIsSubmitting(true);
 
-    try {
-      // Get the user from Google sign-in
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
+  //   try {
+  //     // Get the user from Google sign-in
+  //     const result = await signInWithPopup(auth, googleProvider);
+  //     const user = result.user;
 
-      // Check if user document already exists
-      const userDoc = await getDoc(doc(db, "users", user.uid));
+  //     // Check if user document already exists
+  //     const userDoc = await getDoc(doc(db, "users", user.uid));
 
-      if (userDoc.exists()) {
-        navigate("/");
-        return;
-      }
+  //     if (userDoc.exists()) {
+  //       navigate("/");
+  //       return;
+  //     }
 
-      // Save new user to Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        name: user.displayName || "",
-        email: user.email,
-        method: "google",
-        createdAt: new Date(),
-      });
+  //     // Save new user to Firestore
+  //     await setDoc(doc(db, "users", user.uid), {
+  //       uid: user.uid,
+  //       name: user.displayName || "",
+  //       email: user.email,
+  //       method: "google",
+  //       createdAt: new Date(),
+  //     });
 
-      toast.success("Google Sign-Up Successful!");
-      navigate("/");
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error:", error.message);
-        toast.error("Google sign-in failed. Please try again.");
-      } else {
-        console.error("Unknown error:", error);
-        toast.error("An unknown error occurred");
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  //     toast.success("Google Sign-Up Successful!");
+  //     navigate("/");
+  //   } catch (error) {
+  //     if (error instanceof Error) {
+  //       console.error("Error:", error.message);
+  //       toast.error("Google sign-in failed. Please try again.");
+  //     } else {
+  //       console.error("Unknown error:", error);
+  //       toast.error("An unknown error occurred");
+  //     }
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
 
   return (
     <div className="bg-gray-900 min-h-screen flex items-center justify-center p-4">
@@ -284,14 +282,14 @@ const Register = () => {
           </div>
         </form>
 
-        <div className="flex items-center justify-center">
+        {/* <div className="flex items-center justify-center">
           <div className="border-t border-gray-700 flex-grow"></div>
           <div className="px-4 text-gray-500 text-sm">OR</div>
           <div className="border-t border-gray-700 flex-grow"></div>
-        </div>
+        </div> */}
 
         {/* Google sign-in button */}
-        <div className="space-y-4 flex items-center justify-center">
+        {/* <div className="space-y-4 flex items-center justify-center">
           <button
             type="button"
             onClick={handleGoogleSignIn}
@@ -323,12 +321,12 @@ const Register = () => {
             </svg>
             GOOGLE
           </button>
-        </div>
+        </div> */}
 
         {/* Terms and Privacy */}
         <div className="text-center text-xs text-gray-500">
           <p>
-            By signing in to Duolingo, you agree to our
+            By signing in to IndoTrivia, you agree to our
             <a href="#" className="text-blue-400 hover:text-blue-300 mx-1">
               Terms
             </a>
