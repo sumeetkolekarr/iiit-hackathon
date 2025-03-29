@@ -3,7 +3,7 @@ import { auth, db, googleProvider } from "../../config/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { Mail, Lock, LogIn } from "lucide-react";
+import { X } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -73,144 +73,134 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center my-8 bg-white px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-blue-50 space-y-8 bg-white p-8 rounded-lg shadow-lg">
-        <div className="text-center">
-          {/* Logo */}
-          <div className="flex items-center justify-center">
-            <div className="h-12 w-12 bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg"></div>
-          </div>
-          <h2 className="mt-4 text-3xl font-bold text-gray-900 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
-            Welcome Back
-          </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Sign in to your account to continue
-          </p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="relative w-full max-w-md mx-auto">
+        {/* Close button at top right */}
+        <button
+          title="close"
+          type="button"
+          className="absolute top-4 left-4 text-gray-500 hover:text-gray-700"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <X size={20} />
+        </button>
 
-        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-          <div className="rounded-md shadow-sm space-y-4">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                <Mail size={18} />
+        <div className="bg-white p-8 rounded-lg shadow-sm">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-800">Log in</h2>
+          </div>
+
+          <form onSubmit={handleLogin}>
+            <div className="space-y-5">
+              <div>
+                <input
+                  type="email"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Email or username"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
-              <input
-                type="email"
-                required
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900 outline-none"
-                placeholder="Email address"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                <Lock size={18} />
+
+              <div className="relative">
+                <input
+                  type="password"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 text-sm text-blue-500 font-medium"
+                >
+                  FORGOT?
+                </button>
               </div>
-              <input
-                type="password"
-                required
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900 outline-none"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+
+              <div className="space-y-4 flex items-center justify-center">
+                <button type="submit" className="button-30-blue">
+                  LOG IN
+                </button>
+              </div>
             </div>
+          </form>
+
+          <div className="my-6 flex items-center justify-center">
+            <div className="border-t border-gray-300 flex-grow"></div>
+            <div className="mx-4 text-sm text-gray-500">OR</div>
+            <div className="border-t border-gray-300 flex-grow"></div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-purple-600 hover:text-purple-500"
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
-          <div>
+          <div className="space-y-4 flex items-center justify-center">
             <button
-              type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-white bg-gradient-to-r from-purple-600 to-blue-500 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200"
-            >
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <LogIn size={18} />
-              </span>
-              Sign in
-            </button>
-          </div>
-        </form>
-
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <button
+              type="button"
               onClick={handleGoogleSignIn}
-              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200"
+              className="button-30-default"
             >
               <svg
+                className="mx-2"
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 48 48"
-                width="24px"
-                height="24px"
               >
-                <path
-                  fill="#FFC107"
-                  d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-                />
-                <path
-                  fill="#FF3D00"
-                  d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-                />
-                <path
-                  fill="#4CAF50"
-                  d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-                />
-                <path
-                  fill="#1976D2"
-                  d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-                />
+                <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+                  <path
+                    fill="#4285F4"
+                    d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"
+                  />
+                </g>
               </svg>
-              Sign in with Google
+              GOOGLE
             </button>
+          </div>
+
+          <div className="mt-6 text-center text-xs text-gray-600">
+            <p>
+              By signing in to IndoTrivia, you agree to our{" "}
+              <a href="#" className="text-blue-500">
+                Terms
+              </a>{" "}
+              and{" "}
+              <a href="#" className="text-blue-500">
+                Privacy Policy
+              </a>
+              .
+            </p>
+            <p className="mt-2">
+              This site is protected by reCAPTCHA Enterprise and the Google{" "}
+              <a href="#" className="text-blue-500">
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a href="#" className="text-blue-500">
+                Terms of Service
+              </a>{" "}
+              apply.
+            </p>
           </div>
         </div>
 
-        <div className="text-center mt-4">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{" "}
-            <a
-              href="#"
-              className="font-medium text-purple-600 hover:text-purple-500"
-            >
-              Sign up now
-            </a>
-          </p>
-        </div>
+        {/* <div className="mt-4 text-center">
+          <button className="bg-green-500 text-white font-medium py-2 px-6 rounded-full hover:bg-green-600 transition-colors">
+            SIGN UP
+          </button>
+        </div> */}
       </div>
     </div>
   );

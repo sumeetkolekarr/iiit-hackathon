@@ -1,28 +1,29 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown, Search, Bell, User } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { LibraryBig } from "lucide-react";
+// import { AnimatePresence, motion } from "framer-motion";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isReached, setIsReached] = useState(false);
 
   // Navigation items
-  const navItems = [
-    { name: "Home", href: "#" },
-    { name: "Features", href: "#" },
-    {
-      name: "Products",
-      href: "#",
-      dropdown: [
-        { name: "Product 1", href: "#" },
-        { name: "Product 2", href: "#" },
-        { name: "Product 3", href: "#" },
-      ],
-    },
-    { name: "Pricing", href: "#" },
-    { name: "About", href: "#" },
-    { name: "Contact", href: "#" },
-  ];
+  // const navItems = [
+  //   { name: "Home", href: "#" },
+  //   { name: "Features", href: "#" },
+  //   {
+  //     name: "Products",
+  //     href: "#",
+  //     dropdown: [
+  //       { name: "Product 1", href: "#" },
+  //       { name: "Product 2", href: "#" },
+  //       { name: "Product 3", href: "#" },
+  //     ],
+  //   },
+  //   { name: "Pricing", href: "#" },
+  //   { name: "About", href: "#" },
+  //   { name: "Contact", href: "#" },
+  // ];
 
   // Handle scroll effect
   useEffect(() => {
@@ -38,32 +39,62 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleElement = () => {
+      if (window.scrollY > window.innerHeight) {
+        setIsReached(true);
+      } else {
+        setIsReached(false);
+      }
+    };
+    
+    window.addEventListener("scroll", handleElement);
+    return () => window.removeEventListener("scroll", handleElement);
+  }, []);
+
   // Mobile menu animation variants
-  const mobileMenuVariants = {
-    closed: { opacity: 0, x: "100%" },
-    open: { opacity: 1, x: 0 },
-  };
+  // const mobileMenuVariants = {
+  //   closed: { opacity: 0, x: "100%" },
+  //   open: { opacity: 1, x: 0 },
+  // };
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/90 backdrop-blur-md shadow-lg" : "bg-transparent"
+      className={`fixed py-6 top-0 w-full z-50 px-4 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/50 backdrop-blur-xl border-b border-gray-300"
+          : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <a href="#" className="flex items-center">
+      <div
+        className={`flex items-center ${
+          !isReached ? "justify-between" : "justify-center"
+        }`}
+      >
+        <div className="flex items-center justify-center">
+          <LibraryBig />
+          <h4>IndoTrivia</h4>
+        </div>
+        {!isReached ? (
+          <button type="button" className="button-30-purple" role="button">
+            Get Started
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16"> */}
+      {/* Logo */}
+      {/* <a href="/">
               <div className="h-8 w-8 bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg mr-2"></div>
               <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
                 Horizon
               </span>
-            </a>
-          </div>
+            </a> */}
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
+      {/* Desktop Navigation */}
+      {/* <div className="hidden md:flex md:items-center md:space-x-8">
             {navItems.map((item, index) => (
               <div key={index} className="relative group">
                 <a
@@ -94,10 +125,10 @@ const Navbar = () => {
                 )}
               </div>
             ))}
-          </div>
+          </div> */}
 
-          {/* Icons Section */}
-          <div className="hidden md:flex items-center space-x-4">
+      {/* Icons Section */}
+      {/* <div className="hidden md:flex items-center space-x-4">
             <button
               type="button"
               title="Search"
@@ -127,22 +158,22 @@ const Navbar = () => {
             >
               Get Started
             </button>
-          </div>
+          </div> */}
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+      {/* Mobile menu button */}
+      {/* <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-          </div>
-        </div>
-      </div>
+          </div> */}
+      {/* </div>
+      </div> */}
 
       {/* Mobile menu */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isOpen && (
           <motion.div
             className="md:hidden bg-white shadow-lg absolute top-16 left-0 right-0 h-screen"
@@ -219,7 +250,7 @@ const Navbar = () => {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </nav>
   );
 };
