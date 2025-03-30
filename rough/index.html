@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Shop</title>
+    <style>
+        :root {
+            --primary: #58cc02;
+            --primary-hover: #46a302;
+            --secondary: #fff;
+            --text: #3c3c3c;
+            --light-gray: #f7f7f7;
+            --border: #e5e5e5;
+            --gemcolor: #1cb0f6;
+            --locked: #afafaf;
+            --error: #ff4b4b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--text);
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .user-stats {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: white;
+        }
+        
+        .gems {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .gem-icon {
+            color: #84d8ff;
+            margin-right: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        
+        .shop-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .category-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .category-btn.active {
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .shop-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .shop-item {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .shop-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .item-image {
+            height: 150px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+        
+        .item-info {
+            padding: 1rem;
+        }
+        
+        .item-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--light-gray);
+        }
+        
+        .item-price {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .item-price-icon {
+            color: var(--gemcolor);
+            margin-right: 5px;
+        }
+        
+        .buy-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .buy-btn:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .buy-btn.locked {
+            background-color: var(--locked);
+            cursor: not-allowed;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .modal-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .success .modal-icon {
+            color: var(--primary);
+        }
+        
+        .error .modal-icon {
+            color: var(--error);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-message {
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .shop-items {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .shop-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .shop-categories {
+                flex-wrap: wrap;
+            }
+            
+            .category-btn {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">L</div>
+            LinguaShop
+        </div>
+        <div class="user-stats">
+            <div class="gems">
+                <span class="gem-icon">💎</span>
+                <span id="user-gems">500</span>
+            </div>
+            <div class="streak">
+                <span>🔥</span>
+                <span>12</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>Shop</h1>
+        
+        <div class="shop-categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="powerups">Power-ups</button>
+            <button class="category-btn" data-category="characters">Characters</button>
+            <button class="category-btn" data-category="themes">Themes</button>
+        </div>
+        
+        <div class="shop-items" id="shop-items">
+            <!-- Items will be added dynamically -->
+        </div>
+    </div>
+    
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modal-content">
+            <div class="modal-icon">✅</div>
+            <h2 class="modal-title">Purchase Successful!</h2>
+            <p class="modal-message">You've purchased the item successfully.</p>
+            <button class="modal-btn" id="modal-close-btn">Continue</button>
+        </div>
+    </div>
+    
+    <script>
+        // Shop data
+        const shopItems = [
+            {
+                id: 1,
+                name: "Streak Freeze",
+                description: "Protect your streak for one day of inactivity",
+                price: 200,
+                category: "powerups",
+                icon: "❄"
+            },
+            {
+                id: 2,
+                name: "Double XP Boost",
+                description: "Earn double XP for 30 minutes",
+                price: 100,
+                category: "powerups",
+                icon: "⚡"
+            },
+            {
+                id: 3,
+                name: "Extra Hearts",
+                description: "Get 5 extra hearts to continue lessons",
+                price: 50,
+                category: "powerups",
+                icon: "❤"
+            },
+            {
+                id: 4,
+                name: "Owl Outfit",
+                description: "Stylish graduation outfit for your owl",
+                price: 400,
+                category: "characters",
+                icon: "🦉"
+            },
+            {
+                id: 5,
+                name: "Fox Character",
+                description: "Unlock the clever fox character",
+                price: 300,
+                category: "characters",
+                icon: "🦊"
+            },
+            {
+                id: 6,
+                name: "Dark Theme",
+                description: "Easy on the eyes for night learning",
+                price: 150,
+                category: "themes",
+                icon: "🌙"
+            },
+            {
+                id: 7,
+                name: "Forest Theme",
+                description: "Peaceful green theme for your lessons",
+                price: 150,
+                category: "themes",
+                icon: "🌳"
+            },
+            {
+                id: 8,
+                name: "Unlimited Skips",
+                description: "Skip difficult questions without penalty",
+                price: 500,
+                category: "powerups",
+                icon: "⏭"
+            }
+        ];
+        
+        // User data
+        let userGems = 500;
+        const userGemsElement = document.getElementById('user-gems');
+        const shopItemsContainer = document.getElementById('shop-items');
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        let currentCategory = 'all';
+        
+        // Initialize shop
+        function initShop() {
+            renderShopItems();
+            setupCategoryButtons();
+        }
+        
+        // Render shop items based on category
+        function renderShopItems() {
+            shopItemsContainer.innerHTML = '';
+            
+            const filteredItems = currentCategory === 'all' 
+                ? shopItems 
+                : shopItems.filter(item => item.category === currentCategory);
+            
+            filteredItems.forEach(item => {
+                const canAfford = userGems >= item.price;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'shop-item';
+                itemElement.innerHTML = `
+                    <div class="item-image">
+                        ${item.icon}
+                    </div>
+                    <div class="item-info">
+                        <div class="item-title">${item.name}</div>
+                        <div class="item-description">${item.description}</div>
+                    </div>
+                    <div class="item-footer">
+                        <div class="item-price">
+                            <span class="item-price-icon">💎</span>
+                            <span>${item.price}</span>
+                        </div>
+                        <button class="buy-btn ${!canAfford ? 'locked' : ''}" data-id="${item.id}" ${!canAfford ? 'disabled' : ''}>
+                            ${canAfford ? 'Buy' : 'Not enough gems'}
+                        </button>
+                    </div>
+                `;
+                
+                shopItemsContainer.appendChild(itemElement);
+            });
+            
+            // Add event listeners to buy buttons
+            document.querySelectorAll('.buy-btn:not(.locked)').forEach(btn => {
+                btn.addEventListener('click', handleBuyItem);
+            });
+        }
+        
+        // Setup category buttons
+        function setupCategoryButtons() {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.category-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    // Update current category and re-render items
+                    currentCategory = btn.dataset.category;
+                    renderShopItems();
+                });
+            });
+        }
+        
+        // Handle buy item click
+        function handleBuyItem(e) {
+            const itemId = parseInt(e.target.dataset.id);
+            const item = shopItems.find(i => i.id === itemId);
+            
+            if (userGems >= item.price) {
+                // Deduct gems
+                userGems -= item.price;
+                userGemsElement.textContent = userGems;
+                
+                // Show success modal
+                showModal('success', 'Purchase Successful!', 'You have purchased "${item.name}" for ${item.price} gems.');
+                
+                // Re-render shop items to update affordability
+                renderShopItems();
+            } else {
+                // Show error modal
+                showModal('error', 'Not Enough Gems', 'You need more gems to purchase this item.');
+            }
+        }
+        
+        // Show modal
+        function showModal(type, title, message) {
+            modalContent.innerHTML = `
+                <div class="modal-icon">${type === 'success' ? '✅' : '❌'}</div>
+                <h2 class="modal-title">${title}</h2>
+                <p class="modal-message">${message}</p>
+                <button class="modal-btn" id="modal-close-btn">Continue</button>
+            `;
+            
+            modalContent.className = 'modal-content ' + type;
+            modal.style.display = 'flex';
+            
+            // Add event listener to close button
+            document.getElementById('modal-close-btn').addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Initialize the shop when the page loads
+        window.addEventListener('load', initShop);
+    </script>
+</body>
+</html>

@@ -73,13 +73,13 @@ const Login = () => {
   // };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="relative w-full max-w-md mx-auto">
         {/* Close button at top right */}
         <button
           title="close"
           type="button"
-          className="absolute top-4 left-4 text-gray-500 hover:text-gray-700"
+          className="absolute top-4 left-4 text-gray-50 hover:text-white"
           onClick={() => {
             navigate("/");
           }}
@@ -87,9 +87,9 @@ const Login = () => {
           <X size={20} />
         </button>
 
-        <div className="bg-white p-8 rounded-lg shadow-sm">
+        <div className="bg-gray-700 p-8 rounded-lg shadow-sm">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-800">Log in</h2>
+            <h2 className="text-2xl font-bold text-white">Log in</h2>
           </div>
 
           <form onSubmit={handleLogin}>
@@ -170,7 +170,7 @@ const Login = () => {
             </button>
           </div> */}
 
-          <div className="mt-6 text-center text-xs text-gray-600">
+          <div className="mt-6 text-center text-xs text-white">
             <p>
               By signing in to IndoTrivia, you agree to our{" "}
               <a href="#" className="text-blue-500">

@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-medieval text-gray-800 bg-gray-800;
+  }
+}
 
 .button-30-purple {
   align-items: center;

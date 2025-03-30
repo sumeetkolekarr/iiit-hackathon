@@ -52,7 +52,7 @@ const Navbar = () => {
   // Handle dashboard navigation
   const handleDashboard = () => {
     if (onboardingCompleted) {
-      navigate("/journey");
+      navigate("/quizmap");
     } else {
       navigate("/onboarding");
     }
@@ -98,9 +98,9 @@ const Navbar = () => {
           !isReached ? "justify-between" : "justify-center"
         }`}
       >
-        <div className="flex items-center justify-center">
+        <div className="flex text-white items-center justify-center">
           <LibraryBig />
-          <h4>IndoTrivia</h4>
+          <h4 className="text-white">IndoTrivia</h4>
         </div>
         {!isReached && (
           <div className="flex items-center space-x-2">

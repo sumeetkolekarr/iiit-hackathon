@@ -88,6 +88,10 @@ const Register = () => {
         email,
         method: "email",
         createdAt: new Date(),
+        xp: 0,
+        coins: 0,
+        level: 0,
+        sub_level: 0,
       });
 
       toast.success("Account created successfully!");

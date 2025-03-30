@@ -1,66 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import Leaderboard from "./Leader";
 
-interface User {
-  id: number;
-  name: string;
-  xp: number;
-  avatar: string;
-}
-
-const initialUsers: User[] = [
-  { id: 1, name: "Alice", xp: 1200, avatar: "😎" },
-  { id: 2, name: "Bob", xp: 1100, avatar: "🔥" },
-  { id: 3, name: "Charlie", xp: 950, avatar: "🦊" },
-  { id: 4, name: "David", xp: 850, avatar: "🐉" },
-  { id: 5, name: "Eve", xp: 700, avatar: "👑" },
-  { id: 6, name: "You", xp: 500, avatar: "🙂" }, // User's position
+// Sample data
+const mockLeaderboardData = [
+  { id: "user1", name: "CodeWizard", score: 1580 },
+  { id: "user2", name: "PixelPioneer", score: 1450 },
+  { id: "user3", name: "SyntaxSavvy", score: 1620 },
+  { id: "user4", name: "DataDynamo", score: 1300 },
+  { id: "user5", name: "ReactRanger", score: 1700 },
+  { id: "user6", name: "CSSChampion", score: 1100 },
+  { id: "current_user", name: "You", score: 1180 },
+  { id: "user8", name: "TypeScripter", score: 1550 },
+  { id: "user9", name: "AlgoAce", score: 1250 },
+  { id: "user10", name: "BugBasher", score: 1050 },
+  { id: "user11", name: "GitGuru", score: 1680 },
+  { id: "user12", name: "NodeNinja", score: 950 },
+  { id: "user13", name: "FrontendFriend", score: 1380 },
+  { id: "user14", name: "BackendBuddy", score: 1410 },
+  { id: "user15", name: "MobileMaestro", score: 1150 },
 ];
 
-const Leaderboard: React.FC = () => {
-  const [users, setUsers] = useState<User[]>(initialUsers);
+// Leaderboard configuration
+const leaderboardConfig = {
+  leagueName: "Diamond League",
+  timeRemaining: "Ends in 3 days",
+  promotionZoneSize: 5,
+  demotionZoneSize: 3
+};
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setUsers((prevUsers) =>
-        prevUsers
-          .map((user) => ({
-            ...user,
-            xp: user.xp + Math.floor(Math.random() * 50), // Random XP increase
-          }))
-          .sort((a, b) => b.xp - a.xp)
-      );
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
+const LeaderboardPage: React.FC = () => {
   return (
-    <div className="bg-darkBg text-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold text-center mb-4 text-primary">
-        🏆 Obsidian League
-      </h2>
-      <ul>
-        {users.map((user, index) => (
-          <li
-            key={user.id}
-            className={`flex items-center p-2 border-b border-gray-700 ${
-              user.name === "You" ? "bg-primary text-black rounded-lg p-3" : ""
-            }`}
-          >
-            <span className="text-lg">{user.avatar}</span>
-            <span className="flex-1 ml-3">{user.name}</span>
-            <div className="flex-1 bg-gray-700 h-2 rounded-full overflow-hidden mx-3">
-              <div
-                className="h-full bg-primary transition-all duration-500"
-                style={{ width: `${(user.xp / 1500) * 100}%` }}
-              ></div>
-            </div>
-            <span className="font-semibold">{user.xp} XP</span>
-          </li>
-        ))}
-      </ul>
+    <div>
+      <Leaderboard
+        initialData={mockLeaderboardData}
+        config={leaderboardConfig}
+        currentUserId="current_user"
+        simulateUpdates={true}
+      />
     </div>
   );
 };
 
-export default Leaderboard;
+export default LeaderboardPage;

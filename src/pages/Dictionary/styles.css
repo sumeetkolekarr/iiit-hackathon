@@ -1,0 +1,335 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .wrapper {
+    width: 60%;
+    height: 700px;
+    background-color: cornsilk;
+    text-align: center;
+    border-radius: 20px;
+    padding: 10px 40px 50px;
+    margin: 40px;
+    align-items: center;
+  }
+  .wrapper h1 {
+    color: cadetblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+    font-size: 50px;
+  }
+  
+  .wrapper .search {
+    margin: 35px 0 18px;
+    position: relative;
+  }
+  .search input {
+    height: 60px;
+    width: 80%;
+    outline: none;
+    border-radius: 50px;
+    border: 0px solid #999;
+    padding: 0 70px;
+    font-size: 26px;
+    color: black;
+  }
+  
+  .search :where(i, span) {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    transform: translateY(-50%);
+  }
+  
+  .search i {
+    left: 20px;
+  }
+  .search span {
+    right: 30px;
+    cursor: pointer;
+  }
+  
+  .topmain {
+    background-color: cornsilk;
+    text-align: left;
+    padding: 50px 50px;
+  }
+  
+  .topmain ul li {
+    font-size: 20px;
+    color: rgb(66, 24, 106);
+    display: flex;
+    margin-bottom: 14px;
+    padding-bottom: 17px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .topmain ul li p {
+    color: #999;
+  }
+  
+  .wordlist .tags {
+    color: darkcyan;
+  }
+  
+  .addword {
+    align-items: center;
+    appearance: none;
+    background-color: #fcfcfd;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395a;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+  }
+  
+  .addword:focus {
+    box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  }
+  
+  .addword:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+  
+  .addword:active {
+    box-shadow: #d6d6e7 0 3px 7px inset;
+    transform: translateY(2px);
+  }
+  
+
+
+
+
+
+
+
+
+
+/* General Body and Wrapper Styling */
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+  
+  .wrapper {
+    width: 100%;
+    height: auto;
+    background-color: cornsilk;
+    text-align: center;
+    border-radius: 20px;
+    padding: 20px 30px 40px;
+    margin: 20px;
+    align-items: center;
+  }
+  
+  .wrapper h1 {
+    color: cadetblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .wrapper {
+      width: 90%;
+    }
+  
+    .wrapper h1 {
+      font-size: 32px;
+    }
+  }
+  
+  /* Search Bar */
+  .search {
+    margin: 20px 0 18px;
+    position: relative;
+  }
+  
+  .search input {
+    width: 80%;
+    padding: 10px 50px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    outline: none;
+  }
+  
+  .search i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+  }
+  
+  .topmain {
+    background-color: cornsilk;
+    text-align: left;
+    padding: 20px;
+  }
+  
+  .wordlist {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .wordlist li {
+    font-size: 18px;
+    color: rgb(66, 24, 106);
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .wordlist p {
+    color: #999;
+  }
+  
+  .mainword{
+    color: #00761d;
+  }
+  .tags {
+    color: darkcyan;
+  }
+  
+  /* Buttons */
+  .addword {
+    appearance: none;
+    background-color: #fcfcfd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: "JetBrains Mono", monospace;
+    margin: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .addword:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Popup Overlay */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Popup Content */
+  .popup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .popup-content h2 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  /* Inputs inside Popup */
+  .popup-content input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  /* Buttons inside Popup */
+  .popup-content button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .popup-content button:first-child {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .popup-content button:first-child:hover {
+    background-color: #45a049;
+  }
+  
+  .popup-content button:last-child {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .popup-content button:last-child:hover {
+    background-color: #e53935;
+  }
+  
+  /* Responsive Pop-up */
+  @media (max-width: 600px) {
+    .popup-content {
+      width: 90%;
+    }
+  
+    .popup-content input {
+      width: 100%;
+    }
+  }
+  
